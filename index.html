@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="view_script.js"/></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+</script>
+
+  </head>
+  <body>
+    <div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Welcome to my Project 3</h5>
+
+            </div>
+            <div class="modal-body">
+                <p>Per Use Cases, I will need your Name</p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name_input" placeholder="Name">
+                    </div>
+                    <button type="submit" data-dismiss="modal" id="btn" class="btn btn-primary">Let's Go</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div>
+        <ul>
+          <li onclick="render_view('#quiz_view1',0)"> <span>Quiz One</span> </li>
+          <li onclick="render_view('#quiz_view1',1)"> <span>Quiz Two</span> </li>
+          <li style="float:right" > <span class="stu_name"> </span></li>
+          <li style="float:right" class="stu_Score"> <div id="stu_Score"></div></li>
+        </ul>
+
+      </div>
+      <div id="quiz_view_widget">
+        <div id="question_display">
+          </div>
+      </div>
+  </body>
+
+  <!-- include the views -->
+  <script id="quiz_view1" type="text/x-handlebars-template">
+    <div id="question_display">
+      <a class="btn btn-primary" id="{{oC}}">Start Quiz {{qID}}</a>
+    </div>
+  </script>
+  <!-- question views -->
+  <script id="question-view1" type="text/x-handlebars-template">
+    <h4 id="Question-body">{{Question}}<h4>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm"></div>
+         <div class="col-sm"  id="option1"><img class="rounded" src="{{option1}}" alt="option1" id="option1" width="200" height="200"></div>
+         <div class="col-sm" id="option2"><img id="option2" class="rounded" src="{{option2}}" alt="option2" width="200" height="200"></div>
+         <div class="col-sm"></div>
+          </div>
+     <div class="row">
+       <div class="col-sm"></div>
+        <div class="col-sm"  id="option3"><img class="rounded" src="{{option3}}" alt="option3" width="200" height="200" id="option3"></div>
+        <div class="col-sm" ><img class="rounded" src="{{option4}}" alt="option4" width="200" height="200" id="option3"></div>
+        <div class="col-sm" id="option4"></div>
+      </div>
+        <div id ="explain"></div>
+  </script>
+
+    <script id="question-view2" type="text/x-handlebars-template">
+      <h4 id="Question-body">{{Question}}<h4>
+          <div class="form-group">
+              <input type="text" class="form-control" id="one-word-answer" placeholder="Answer">
+          </div>
+        <a class="btn btn-primary" id="word-check">submit</a>
+      </div>  <div id ="explain"></div>
+    </script>
+
+    <script id="question-view3" type="text/x-handlebars-template">
+        <h4 id="question">{{Question}}<h4>
+
+        <a class="btn btn-success" id="option1">True</a>
+        <a class="btn btn-danger" id="option2">False</a>
+      </div>  <div id ="explain"></div>
+    </script>
+
+
+    <script id="question-view4" type="text/x-handlebars-template">
+      <h4 id="Question-body">{{Question}}<h4>
+        <div>
+        <a class="btn btn-primary" id="option1">{{option1}}</a>
+        <a class="btn btn-primary" id="option2">{{option2}}</a>
+        <a class="btn btn-primary" id="option3">{{option3}}</a>
+        <a class="btn btn-primary" id="option4">{{option4}}</a>
+      </div>  <div id ="explain"></div>
+
+    </script>
+
+    <script id="question-view5" type="text/x-handlebars-template">
+        <h4 id="Question-body">{{Question}}</h4>
+        <div>
+          <form>
+          <select class="form-control" id="dropdown">
+              <option id="option1" value="option1">{{option1}}</option>
+              <option id="option2" value="option2">{{option2}}</option>
+              <option id="option3" value="option3">{{option3}}</option>
+              <option id="option4" value="option4">{{option4}}</option>
+            </select>
+              <a class="btn btn-primary" id="dropdown-check" >submit</a>
+          </form>
+          <div id ="explain"></div>
+      </div>
+    </script>
+
+    <script id="summary" type="text/x-handlebars-template">
+      <div id="question_display">
+      <h4>  Now you have finished this quiz {{firstname}}!!!</h4>
+      <h4>  you have finished 20 questions;</h4>
+      <h4>  {{right}} are correct; {{wrong}} are wrong.</h4>
+      <h4>  You have <b>{{status}}</b> this quick quiz!</h4>
+      </div>
+    </script>
+
+    <script id="yay" type="text/x-handlebars-template">
+      <div id="question_display">
+        <h1> Great job! </h1>
+      </div>
+    </script>
+
+    <script id="nay" type="text/x-handlebars-template">
+      <div id="question_display">
+        <h1> Oops</h1>
+        <h3>the answer should be {{answer}}</h3>
+        <h3>{{Explain}}</h3>
+        <a class="btn btn-primary" onclick="render_question_view()" style="text-align: right"> Got it! Next!</a>
+      </div>
+    </script>
+
+    <script id="proBar" type="text/x-handlebars-template">
+      <div class="progress" style="width:300px; margin-top:10px">
+          <div class="progress-bar bg-success" style="width:{{css right}}%">
+            {{right}}
+          </div>
+          <div class="progress-bar bg-warning" style="width:{{css wrong}}%">
+            {{wrong}}
+          </div>
+
+        </div>
+    </script>
+
+
+
+
+
+</html>
